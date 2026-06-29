@@ -60,6 +60,22 @@ impl Widget for &App {
     }
 }
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use ratatui::style::Style;
+
+    #[test]
+    fn render() {
+        let app = App::default();
+        let mut buf = Buffer::empty(Rect::new(0, 0, 50, 4));
+
+        app.render(buf.area(), &mut buf);
+
+        let mut expected = Buffer::with_lines();
+    }
+}
+
 fn main() -> io::Result<()> {
     ratatui::run(|terminal| App::default().run(terminal));
 }
