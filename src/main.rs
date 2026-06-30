@@ -1,4 +1,3 @@
-#![allow(unused)]
 use std::io;
 
 use crossterm::event::{self, Event, KeyCode, KeyEvent, KeyEventKind};
