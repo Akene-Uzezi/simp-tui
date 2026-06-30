@@ -70,7 +70,7 @@ mod tests {
         let app = App::default();
         let mut buf = Buffer::empty(Rect::new(0, 0, 50, 4));
 
-        app.render(buf.area(), &mut buf);
+        app.render(*buf.area(), &mut buf);
 
         let mut expected = Buffer::with_lines(vec![
             "┏━━━━━━━━━━━━━ Counter App Tutorial ━━━━━━━━━━━━━┓",
@@ -93,5 +93,5 @@ mod tests {
 }
 
 fn main() -> io::Result<()> {
-    ratatui::run(|terminal| App::default().run(terminal));
+    ratatui::run(|terminal| App::default().run(terminal))
 }
