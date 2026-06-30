@@ -124,6 +124,7 @@ mod tests {
         assert_eq!(buf, expected);
     }
 
+    #[test]
     fn handle_key_event() {
         let mut app = App::default();
         app.handle_key_event(KeyCode::Right.into());
