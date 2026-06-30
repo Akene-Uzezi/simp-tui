@@ -133,7 +133,7 @@ mod tests {
         assert_eq!(app.counter, 0);
 
         let mut app = App::default();
-        app.handle_key_event(KeyCode::Char(('q').into()));
+        app.handle_key_event(KeyCode::Char('q').into());
         assert!(app.exit);
     }
 }
