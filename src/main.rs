@@ -35,21 +35,27 @@ impl  App {
 }
 impl Widget for &App {
     fn render(self, area: Rect, buf: &mut Buffer) {
-        let title = Line::from(" Counter App tutorial ".bold());
+        // 1. Fix capitalization to match "Counter App Tutorial"
+        let title = Line::from(" Counter App Tutorial ".bold()); 
+        
+        // 2. Fix the spacing here so the characters line up with the test coordinates
         let instructions = Line::from(vec![
-            " Decrement  ".into(),
+            " Decrement ".into(),
             "<Left>".blue().bold(),
-            "Increment".into(),
+            " Increment ".into(),
             "<Right>".blue().bold(),
             " Quit ".into(),
             "<Q> ".blue().bold(),
         ]);
+        
         let block = Block::bordered()
             .title(title.centered())
             .title_bottom(instructions.centered())
             .border_set(border::THICK);
+            
+        // 3. Add the missing colon ":" after Value
         let countertext = Text::from(vec![Line::from(vec![
-            "Value ".into(),
+            "Value: ".into(), 
             self.counter.to_string().yellow(),
         ])]);
 
