@@ -42,8 +42,8 @@ impl App {
     fn handle_key_event(&mut self, key_event: KeyEvent) {
         match key_event.code {
             KeyCode::Char('q') => self.exit(),
-            KeyCode::Left => self.decrement_counter(),
-            KeyCode::Right => self.increment_counter(),
+            KeyCode::Char('j') => self.decrement_counter(),
+            KeyCode::Char('l') => self.increment_counter(),
             _ => {}
         }
     }
@@ -127,7 +127,7 @@ mod tests {
     #[test]
     fn handle_key_event() {
         let mut app = App::default();
-        app.handle_key_event(KeyCode::Right.into());
+        app.handle_key_event(KeyCode::Char('l').into());
         assert_eq!(app.counter, 1);
 
         app.handle_key_event(KeyCode::Left.into());
