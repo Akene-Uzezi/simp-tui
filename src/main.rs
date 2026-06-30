@@ -16,7 +16,7 @@ pub struct App {
     exit: bool
 }
 
-impl  App {
+impl App {
     pub fn run(&mut self, terminal: &mut DefaultTerminal) -> io::Result<()> {
         while !self.exit {
             terminal.draw(|frame| self.draw(frame))?;
@@ -30,7 +30,34 @@ impl  App {
     }
 
     fn handle_events(&mut self) -> io::Result<()>  {
-        todo!()
+        match event::read()? {
+            Event::Key(key_event) if key_event.kind == KeyEventKind::Press => {
+                self.handle_key_event(key_event)
+            }
+            _ => {}
+        };
+        Ok(())
+    }
+
+    fn handle_key_event(&mut self, key_event: KeyEvent) {
+        match key_event.code {
+            KeyCode::Char('q') => self.exit(),
+            KeyCode::Left => self.decrement_counter(),
+            KeyCode::Right => self.increment_counter(),
+            _ => {}
+        }
+    }
+
+    fn exit(&mut self) {
+        self.exit = true;
+    }
+
+    fn increment_counter(&mut self) {
+        self.counter += 1;
+    }
+
+    fn decrement_counter(&mut self) {
+        self.counter -= 1;
     }
 }
 impl Widget for &App {
@@ -95,6 +122,19 @@ mod tests {
         expected.set_style(Rect::new(43, 3, 4, 1), key_style);
 
         assert_eq!(buf, expected);
+    }
+
+    fn handle_key_event() {
+        let mut app = App::default();
+        app.handle_key_event(KeyCode::Right.into());
+        assert_eq!(app.counter, 1);
+
+        app.handle_key_event(KeyCode::Left.into());
+        assert_eq!(app.counter, 0);
+
+        let mut app = App::default();
+        app.handle_key_event(KeyCode::Char(('q').into()));
+        assert!(app.exit);
     }
 }
 
